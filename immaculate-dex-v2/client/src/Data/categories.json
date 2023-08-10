@@ -1,0 +1,74 @@
+[
+    {
+        "id": "1",
+        "category": "normal"
+    },
+    {
+        "id": "2",
+        "category": "fire"
+    },
+    {
+        "id": "3",
+        "category": "water"
+    },
+    {
+        "id": "4",
+        "category": "grass"
+    },
+    {
+        "id": "5",
+        "category": "electric"
+    },
+    {
+        "id": "6",
+        "category": "ice"
+    },
+    {
+        "id": "7",
+        "category": "fighting"
+    },
+    {
+        "id": "8",
+        "category": "poison"
+    },
+    {
+        "id": "9",
+        "category": "ground"
+    },
+    {
+        "id": "10",
+        "category": "flying"
+    },
+    {
+        "id": "11",
+        "category": "psychic"
+    },
+    {
+        "id": "12",
+        "category": "bug"
+    },
+    {
+        "id": "13",
+        "category": "rock"
+    },
+    {
+        "id": "14",
+        "category": "ghost"
+    },
+    {
+        "id": "15",
+        "category": "dark"
+    },
+    {
+        "id": "16",
+        "category": "dragon"
+    },
+    {
+        "id": "17",
+        "category": "steel"
+    },
+    {
+        "id": "18",
+        "category": "fairy"
+    }
+]

@@ -1,0 +1,127 @@
+body {
+    /* margin: 0;
+    padding: 0; */
+    background-color: #111827; /* Dark mode background color */
+    color: #ffffff; /* Text color for dark mode */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    
+    overflow-x: hidden;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        5,
+        200px
+    ); /* Adjust width of columns as needed */
+    grid-template-rows: repeat(5, 200px); /* Adjust height of rows as needed */
+    gap: 0; /* Decrease the padding between buttons to 0 */
+}
+
+.grid-button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #1f2937; /* Dark mode button background color */
+    font-size: 1.4rem; /* Increase font size slightly */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    /*added from immaculate */
+
+    /* Transition effects */
+    /** on hover, change background color and text color */
+
+    transition-duration: 0.15s;
+    overflow: hidden;
+
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+/* Rounded corners for buttons in the corners of the grid */
+.grid-button:nth-child(7) {
+    border-top-left-radius: 8px;
+}
+.grid-button:nth-child(9) {
+    border-top-right-radius: 8px;
+}
+.grid-button:nth-child(17) {
+    border-bottom-left-radius: 8px;
+}
+.grid-button:nth-child(19) {
+    border-bottom-right-radius: 8px;
+}
+
+.grid-button:hover {
+    background-color: #273241;
+}
+
+.column-header {
+    align-self: center;
+    justify-self: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    /* margin-top: 100px; */
+}
+
+.row-header {
+    align-self: center;
+    justify-self: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.selected {
+    background-color: #c2ba71;
+}
+
+.selected:hover {
+    background-color: #c2ba71;
+}
+
+.disabled {
+    background-color: #59d185;
+    pointer-events: none; /* This prevents any further click or hover events on the button */
+}
+
+
+.page-contents {
+  position: relative;
+}
+
+.cover-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998; /* Lower z-index to ensure the cover div appears below the search bar container */
+}
+
+.search-bar-container {
+  position: absolute;
+  z-index: 999;
+  left: 50%; /* Center horizontally */
+  top: 30%; /* Center vertically */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  width: 500px;
+}
+
+.search-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
