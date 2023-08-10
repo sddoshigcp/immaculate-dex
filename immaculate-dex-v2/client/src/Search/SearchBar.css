@@ -1,28 +1,43 @@
 .input-wrapper {
-    width: 100%;
+    width: 500px;
     height: 2.5rem;
     border: none;
-    border-radius: 10px;
-    padding: 0 15px;
-    box-shadow: 0px 0px 8px #ddd;
-    background-color: white;
+    border-radius: 10px 10px 0px 0px;
+    padding: 5px 5px 5px 15px;
+    box-shadow: 0px 0px 2px black;
+    background-color: #374151;
     display: flex;
     align-items: center;
-  }
-  
-  /* input {
+    color: white;
+}
+
+.input-wrapper.empty {
+  /* Apply blue style when the class is present */
+  border-radius: 10px 10px 10px 10px; /* Change the background color to blue */
+}
+
+.input-wrapper.full {
+  border-radius: 10px 10px 0px 0px;
+}
+
+.search-input {
     background-color: transparent;
     border: none;
     height: 100%;
-    font-size: 1.25rem;
     width: 100%;
-    margin-left: 5px;
-  } */
-  
-  input:focus {
+    margin-left: 10px;
+    color: white;
+}
+
+.search-input::placeholder {
+    color: white;
+}
+
+input:focus {
     outline: none;
-  }
-  
-  #search-icon {
-    color: royalblue;
-  }
+}
+
+#search-icon {
+    padding-left: 10px;
+    color: rgb(160, 160, 160);
+}

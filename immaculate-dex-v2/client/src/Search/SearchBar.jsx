@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { LuSearch } from "react-icons/lu";
+import {BsSearch} from "react-icons/bs";
 
 import "./SearchBar.css";
 
 export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const fetchData = (value) => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -19,18 +21,21 @@ export const SearchBar = ({ setResults }) => {
           );
         });
         setResults(results);
+        setSearchResults(results);
       });
   };
 
   const handleChange = (value) => {
+
     setInput(value);
     fetchData(value);
   };
 
   return (
-    <div className="input-wrapper">
-      <FaSearch id="search-icon" />
+    <div className={`input-wrapper ${searchResults.length > 0 ? 'full' : 'empty'}`}>
+      <BsSearch id="search-icon" />
       <input
+        className="search-input"
         placeholder="Type to search..."
         value={input}
         onChange={(e) => handleChange(e.target.value)}
