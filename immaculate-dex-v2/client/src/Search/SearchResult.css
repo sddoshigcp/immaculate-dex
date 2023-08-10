@@ -1,7 +1,36 @@
 .search-result {
     padding: 10px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
   
   .search-result:hover {
     background-color: #39475a;
+  }
+
+  .sprite-image {
+    align-self: center;
+    justify-self: center;
+  }
+
+  .pokemon-name {
+    font-weight: bold;
+    align-self: center;
+  }
+
+  .select-pokemon {
+    background-color: rgb(22 163 74);
+    border-radius: 10px;
+    color: white;
+    height: 50%;
+    width: 50%;
+    align-self: center;
+    justify-self: right;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+  }
+
+  .select-pokemon:hover {
+    
+    background-color: rgb(25, 180, 82);
   }
