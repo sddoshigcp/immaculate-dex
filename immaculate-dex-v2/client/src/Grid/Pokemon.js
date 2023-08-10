@@ -17,6 +17,16 @@ function getPokemonByName(name) {
     return null; // If no matching Id is found
 }
 
+export async function getAllPokemonNames() {
+    let pokemonNames = [];
+
+    for (const item of pokemon) {
+        pokemonNames.push(item.name);
+    }
+
+    return pokemonNames;
+}
+
 export async function getSprite(name) {
     let pokemonName = name.toLowerCase();
 
