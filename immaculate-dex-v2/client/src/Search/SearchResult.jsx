@@ -7,15 +7,6 @@ export const SearchResult = ({ result, onSelect }) => {
   const [pokemonSprite, setPokemonSprite] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const sprite = await getSprite(result);
-  //     setPokemonSprite(sprite);
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  // }, []);
-
   useEffect(() => {
     async function fetchData() {
       setLoading(true);

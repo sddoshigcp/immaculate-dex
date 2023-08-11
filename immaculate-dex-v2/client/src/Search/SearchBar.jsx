@@ -56,7 +56,7 @@ export const SearchBar = ({ setResults }) => {
       <BsSearch id="search-icon" />
       <input
         className="search-input"
-        placeholder="Type to search..."
+        placeholder="Search..."
         value={input}
         onChange={(e) => handleChange(e.target.value)}
       />

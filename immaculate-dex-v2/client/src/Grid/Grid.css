@@ -71,6 +71,12 @@ body {
     /* margin-top: 100px; */
 }
 
+.grid-logo {
+    align-self: center;
+    justify-self: center;
+    width: 150px;
+}
+
 .row-header {
     align-self: center;
     justify-self: center;
@@ -124,4 +130,30 @@ body {
   align-items: center;
   width: 500px;
   height: 100%;
+}
+
+
+.guess-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.guess-header {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 9pt;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.guess-remaining {
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 50pt;
 }

@@ -13,57 +13,102 @@ import { SearchBar } from "../Search/SearchBar";
 import { SearchResultsList } from "../Search/SearchResultsList";
 
 function Grid() {
+    //Selected button and pokemon
     const [selectedButtonId, setSelectedButtonId] = useState(null);
     const [selectedPokemon, setSelectedPokemon] = useState(null);
+
+    //Disabled buttons (correct guesses)
     const [disabledButtons, setDisabledButtons] = useState([]);
+
+    //Pokemon names
     const [pokemonNames, setPokemonNames] = useState([]);
+    
+    //Header for categories, clues based on headers, and answers based on clues
     const [gridHeaders, setGridHeaders] = useState([]);
+    const [gridClues, setGridClues] = useState([]);
+    const [gridAnswers, setGridAnswers] = useState([]);
+
+    //User guesses
+    const [userGuesses, setUserGuesses] = useState([]);
+    const [guessesRemaining, setGuessesRemaining] = useState(null);
+    
+    //Loading state
     const [loading, setLoading] = useState(true);
+
+    //Sprite for the selected pokemon
     const [pokemonSprite, setPokemonSprite] = useState(null);
+
+    //Whether to show the search bar
     const [showSearchBar, setShowSearchBar] = useState(false);
+
+    //Search results
     const [results, setResults] = useState([]);
 
+    //Refs
     const coverDivRef = useRef(null);
     const inputRef = useRef(null);
 
     const handleSearchResultSelect = (selectedOption) => {
-        setSelectedPokemon(selectedOption);
         console.log(`Option selected:`, selectedOption);
+        setSelectedPokemon(selectedOption);
         handleSearchBarClose();
+        
+        let newRemainingGuesses = guessesRemaining;
+        newRemainingGuesses--;
+        setGuessesRemaining(newRemainingGuesses);
     };
 
+    useEffect(() => {
+        console.log(`Pokemon selected:`, selectedPokemon);
+    }, [selectedPokemon]); // This useEffect will run whenever selectedPokemon changes
+
+
+    //Selecting a box from the grid
     const handleButtonClick = (buttonId) => {
         setSelectedButtonId(buttonId);
         setShowSearchBar(true);
     };
 
+    //Closing the search bar
     const handleSearchBarClose = (e) => {
         setShowSearchBar(false);
+        setResults([]);
         setSelectedButtonId(null);
     };
 
     useEffect(() => {
+        //Fetch data from API
         async function fetchData() {
             try {
                 const pokemon = await getAllPokemon();
                 setPokemonNames(pokemon);
 
+                //Retrieving headers
                 const gridHeaders = await getHeaders();
+                
+                //Setting up clues
+                const firstArray = gridHeaders.slice(3);
+                const secondArray = gridHeaders.slice(0,3); 
+                for (const element1 of firstArray) {
+                    for (const element2 of secondArray) {
+                        gridClues.push([element1, element2]);
+                    }
+                }
+
+                //Set remaining guesses
+                setGuessesRemaining(gridClues.length);
+
+                //Setting up headers
                 const upperCaseGridHeaders = gridHeaders.map((header) =>
                     header.toUpperCase()
                 );
                 setGridHeaders(upperCaseGridHeaders);
 
+                //Little buddy
                 const pokemonSprite = await getSprite("bulbasaur");
                 setPokemonSprite(pokemonSprite);
 
-                const types = await getTypesForPokemon("bulbasaur");
-                const pokemonByType = await getAllPokemonByType("grass");
-                const pokemonByTypes = await getAllPokemonByTypes(
-                    "grass",
-                    "poison"
-                );
-
+                //Completed loading
                 setLoading(false);
             } catch (error) {
                 console.error("Error in component:", error.message);
@@ -72,8 +117,7 @@ function Grid() {
         fetchData();
     }, []);
 
-    const pokemonNamesArray = pokemonNames.map((pokemon) => pokemon.name);
-
+    //TODO: Loading screen
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -97,7 +141,7 @@ function Grid() {
             )}
 
             <div className="button-grid">
-                <p className="column-header">LOGO GOES HERE</p>
+                <img src="../immaculate-dex-logo.png" className="grid-logo"/>
                 <p className="column-header">{gridHeaders[0]}</p>
                 <p className="column-header">{gridHeaders[1]}</p>
                 <p className="column-header">{gridHeaders[2]}</p>
@@ -183,7 +227,7 @@ function Grid() {
                 >
                     Button 6
                 </button>
-                <p></p>
+                <div className="guess-div"><p className="guess-header">GUESSES LEFT</p><p className="guess-remaining">{guessesRemaining}</p></div>
                 <p className="row-header">{gridHeaders[5]}</p>
                 <button
                     id="button7"
