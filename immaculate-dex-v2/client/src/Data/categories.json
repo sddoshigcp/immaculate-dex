@@ -1,74 +1,74 @@
 [
     {
         "id": "1",
-        "category": "normal"
+        "category": "normal", "clue_type": 1
     },
     {
         "id": "2",
-        "category": "fire"
+        "category": "fire", "clue_type": 1
     },
     {
         "id": "3",
-        "category": "water"
+        "category": "water", "clue_type": 1
     },
     {
         "id": "4",
-        "category": "grass"
+        "category": "grass", "clue_type": 1
     },
     {
         "id": "5",
-        "category": "electric"
+        "category": "electric", "clue_type": 1
     },
     {
         "id": "6",
-        "category": "ice"
+        "category": "ice", "clue_type": 1
     },
     {
         "id": "7",
-        "category": "fighting"
+        "category": "fighting", "clue_type": 1
     },
     {
         "id": "8",
-        "category": "poison"
+        "category": "poison", "clue_type": 1
     },
     {
         "id": "9",
-        "category": "ground"
+        "category": "ground", "clue_type": 1
     },
     {
         "id": "10",
-        "category": "flying"
+        "category": "flying", "clue_type": 1
     },
     {
         "id": "11",
-        "category": "psychic"
+        "category": "psychic", "clue_type": 1
     },
     {
         "id": "12",
-        "category": "bug"
+        "category": "bug", "clue_type": 1
     },
     {
         "id": "13",
-        "category": "rock"
+        "category": "rock", "clue_type": 1
     },
     {
         "id": "14",
-        "category": "ghost"
+        "category": "ghost", "clue_type": 1
     },
     {
         "id": "15",
-        "category": "dark"
+        "category": "dark", "clue_type": 1
     },
     {
         "id": "16",
-        "category": "dragon"
+        "category": "dragon", "clue_type": 1
     },
     {
         "id": "17",
-        "category": "steel"
+        "category": "steel", "clue_type": 1
     },
     {
         "id": "18",
-        "category": "fairy"
+        "category": "fairy", "clue_type": 1
     }
 ]

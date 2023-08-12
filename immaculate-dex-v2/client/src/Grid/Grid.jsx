@@ -8,6 +8,7 @@ import {
     getAllPokemonByType,
     getAllPokemonByTypes,
     getTypesForPokemon,
+    checkGuess
 } from "./Pokemon";
 import { SearchBar } from "../Search/SearchBar";
 import { SearchResultsList } from "../Search/SearchResultsList";
@@ -17,8 +18,9 @@ function Grid() {
     const [selectedButtonId, setSelectedButtonId] = useState(null);
     const [selectedPokemon, setSelectedPokemon] = useState(null);
 
-    //Disabled buttons (correct guesses)
+    //Disabled buttons and correct buttons
     const [disabledButtons, setDisabledButtons] = useState([]);
+    const [correctButtons, setCorrectButtons] = useState([]);
 
     //Pokemon names
     const [pokemonNames, setPokemonNames] = useState([]);
@@ -48,16 +50,27 @@ function Grid() {
     const coverDivRef = useRef(null);
     const inputRef = useRef(null);
 
+    //When the user selects a pokemon from the search bar
     const handleSearchResultSelect = (selectedOption) => {
         console.log(`Option selected:`, selectedOption);
+        
+        //Set the selected pokemon (TODO: might be unnecessary)
         setSelectedPokemon(selectedOption);
+
+        
+        //check guess
+        const guess = checkGuess(selectedOption, gridClues[selectedButtonId - 1]);
+
+        //Close the search bar
         handleSearchBarClose();
         
+        //Decrement guesses remaining
         let newRemainingGuesses = guessesRemaining;
         newRemainingGuesses--;
         setGuessesRemaining(newRemainingGuesses);
     };
 
+    
     useEffect(() => {
         console.log(`Pokemon selected:`, selectedPokemon);
     }, [selectedPokemon]); // This useEffect will run whenever selectedPokemon changes
@@ -67,6 +80,10 @@ function Grid() {
     const handleButtonClick = (buttonId) => {
         setSelectedButtonId(buttonId);
         setShowSearchBar(true);
+
+        //print corresponding clue
+        console.log("Clue: " + JSON.stringify(gridClues[buttonId - 1]));
+
     };
 
     //Closing the search bar
@@ -152,8 +169,8 @@ function Grid() {
                     className={
                         selectedButtonId === 1
                             ? "grid-button selected"
-                            : disabledButtons.includes(1)
-                            ? "grid-button disabled"
+                            : correctButtons.includes(1)
+                            ? "grid-button correct"
                             : "grid-button"
                     }
                     onClick={() => handleButtonClick(1)}

@@ -92,7 +92,7 @@ body {
     background-color: #c2ba71;
 }
 
-.disabled {
+.correct {
     background-color: #59d185;
     pointer-events: none; /* This prevents any further click or hover events on the button */
 }

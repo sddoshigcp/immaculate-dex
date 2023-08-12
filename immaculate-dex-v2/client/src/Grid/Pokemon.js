@@ -104,3 +104,18 @@ export async function getTypesForPokemon(name) {
         console.error("Error fetching data:", error.message);
     }
 }
+
+export async function checkGuess(guess, clues) {
+
+    //get all pokemon by types
+    const pokemonByTypes = await getAllPokemonByTypes(clues[0], clues[1]);
+
+    //if guess is in pokemonByTypes, return true
+    for (const item of pokemonByTypes) {
+        if (item.name === guess) {
+            return true;
+        }
+    }
+    
+    return false;
+}

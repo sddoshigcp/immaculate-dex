@@ -1,0 +1,61 @@
+.grid-button-div {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #1f2937; /* Dark mode button background color */
+    font-size: 1.4rem; /* Increase font size slightly */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    /*added from immaculate */
+
+    /* Transition effects */
+    /** on hover, change background color and text color */
+
+    transition-duration: 0.15s;
+    overflow: hidden;
+
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+.grid-button-image {
+
+}
+
+.grid-button-text {
+
+}  
+
+.grid-button-div:nth-child(7) {
+    border-top-left-radius: 8px;
+}
+.grid-button-div:nth-child(9) {
+    border-top-right-radius: 8px;
+}
+.grid-button-div:nth-child(17) {
+    border-bottom-left-radius: 8px;
+}
+.grid-button-div:nth-child(19) {
+    border-bottom-right-radius: 8px;
+}
+
+.grid-button-div:hover {
+    background-color: #273241;
+}
+
+.selected {
+    background-color: #c2ba71;
+}
+
+.selected:hover {
+    background-color: #c2ba71;
+}
+
+.correct {
+    background-color: #59d185;
+    pointer-events: none; /* This prevents any further click or hover events on the button */
+}
