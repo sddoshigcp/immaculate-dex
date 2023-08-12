@@ -1,22 +1,20 @@
 import "./SearchResultsList.css";
 import { SearchResult } from "./SearchResult";
 
-// export const SearchResultsList = ({ results }) => {
-//   return (
-//     <div className="results-list">
-//       {results.map((result, id) => {
-//         return <SearchResult result={result.name} key={id} />;
-//       })}
-//     </div>
-//   );
-// };
-
 export const SearchResultsList = ({ results, onSelect }) => {
-  return (
-      <div className="results-list">
-          {results.map((result, id) => {
-              return <SearchResult result={result.name} key={id} onSelect={() => onSelect(result.name)} />;
-          })}
-      </div>
-  );
+    return (
+        <div className="results-list">
+            {/* <SearchResult result="None" onSelect={() => onSelect("None")} /> */}
+
+            {results.map((result, id) => {
+                return (
+                    <SearchResult
+                        result={result.name}
+                        key={id}
+                        onSelect={() => onSelect(result.name)}
+                    />
+                );
+            })}
+        </div>
+    );
 };

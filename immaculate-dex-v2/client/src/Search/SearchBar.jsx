@@ -38,6 +38,12 @@ export const SearchBar = ({ setResults }) => {
             pokemon.name.toLowerCase().includes(value)
           );
         });
+
+        results.push({
+          name: "None"
+        });
+
+        
         setResults(results);
         setSearchResults(results);
       });
