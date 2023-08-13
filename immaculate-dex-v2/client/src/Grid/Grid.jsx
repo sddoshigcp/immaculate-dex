@@ -12,15 +12,16 @@ import {
 } from "./Pokemon";
 import { SearchBar } from "../Search/SearchBar";
 import { SearchResultsList } from "../Search/SearchResultsList";
+import { GridButton } from "../GridButton/GridButton";
 
 function Grid() {
     //Selected button and pokemon
     const [selectedButtonId, setSelectedButtonId] = useState(null);
+    const [previouslySelectedButtonId, setPreviouslySelectedButtonId] = useState(null); //TODO: find way to remove
     const [selectedPokemon, setSelectedPokemon] = useState(null);
 
     //Disabled buttons and correct buttons
-    const [disabledButtons, setDisabledButtons] = useState([]);
-    const [correctButtons, setCorrectButtons] = useState([]);
+    const [buttonStates, setButtonStates] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
     //Pokemon names
     const [pokemonNames, setPokemonNames] = useState([]);
@@ -78,7 +79,24 @@ function Grid() {
 
     //Selecting a box from the grid
     const handleButtonClick = (buttonId) => {
+
+        //if button is already selected, do nothing
+        if (buttonStates[buttonId - 1] > 0) {
+            return;
+        }
+
+        //change button states
+        let newButtonStates = buttonStates;
+        newButtonStates[buttonId - 1] = 1;
+
+        //set button states
+        setButtonStates(newButtonStates);
+        
+        //set selected button
         setSelectedButtonId(buttonId);
+        setPreviouslySelectedButtonId(buttonId);
+
+        //show search bar
         setShowSearchBar(true);
 
         //print corresponding clue
@@ -86,8 +104,23 @@ function Grid() {
 
     };
 
+    useEffect(() => {
+        console.log("previouslySelectedButtonId:", previouslySelectedButtonId);
+        console.log("selectedButtonId:", selectedButtonId);
+        console.log(`Button states:`, buttonStates);
+    }, [selectedButtonId]);
+
     //Closing the search bar
     const handleSearchBarClose = (e) => {
+
+        //Make every 1 in buttonStates a 0
+        let newButtonStates = buttonStates;
+        for (let i = 0; i < newButtonStates.length; i++) {
+            if (newButtonStates[i] === 1) {
+                newButtonStates[i] = 0;
+            }
+        }
+
         setShowSearchBar(false);
         setResults([]);
         setSelectedButtonId(null);
@@ -141,6 +174,9 @@ function Grid() {
 
     return (
         <div className="page-contents">
+
+            
+
             {showSearchBar && (
                 <div className="search-div">
                     <div
@@ -164,127 +200,23 @@ function Grid() {
                 <p className="column-header">{gridHeaders[2]}</p>
                 <p></p>
                 <p className="row-header">{gridHeaders[3]}</p>
-                <button
-                    id="button1"
-                    className={
-                        selectedButtonId === 1
-                            ? "grid-button selected"
-                            : correctButtons.includes(1)
-                            ? "grid-button correct"
-                            : "grid-button"
-                    }
-                    onClick={() => handleButtonClick(1)}
-                >
-                    Button 1
-                </button>
-                <button
-                    id="button2"
-                    className={
-                        selectedButtonId === 2
-                            ? "grid-button selected"
-                            : disabledButtons.includes(2)
-                            ? "grid-button disabled"
-                            : "grid-button"
-                    }
-                    onClick={() => handleButtonClick(2)}
-                >
-                    Button 2
-                </button>
-                <button
-                    id="button3"
-                    className={
-                        selectedButtonId === 3
-                            ? "grid-button selected"
-                            : disabledButtons.includes(3)
-                            ? "grid-button disabled"
-                            : "grid-button"
-                    }
-                    onClick={() => handleButtonClick(3)}
-                >
-                    Button 3
-                </button>
+                
+                <GridButton id="button1" state={buttonStates[0]} func={() => handleButtonClick(1)} />
+                <GridButton id="button1" state={buttonStates[1]} func={() => handleButtonClick(2)} />
+                <GridButton id="button1" state={buttonStates[2]} func={() => handleButtonClick(3)} />
+
                 <p></p>
                 <p className="row-header">{gridHeaders[4]}</p>
-                <button
-                    id="button4"
-                    className={
-                        selectedButtonId === 4
-                            ? "grid-button selected"
-                            : disabledButtons.includes(4)
-                            ? "grid-button disabled"
-                            : "grid-button"
-                    }
-                    onClick={() => handleButtonClick(4)}
-                >
-                    Button 4
-                </button>
-                <button
-                    id="button5"
-                    className={
-                        selectedButtonId === 5
-                            ? "grid-button selected"
-                            : disabledButtons.includes(5)
-                            ? "grid-button disabled"
-                            : "grid-button"
-                    }
-                    onClick={() => handleButtonClick(5)}
-                >
-                    Button 5
-                </button>
-                <button
-                    id="button6"
-                    className={
-                        selectedButtonId === 6
-                            ? "grid-button selected"
-                            : disabledButtons.includes(6)
-                            ? "grid-button disabled"
-                            : "grid-button"
-                    }
-                    onClick={() => handleButtonClick(6)}
-                >
-                    Button 6
-                </button>
+                <GridButton id="button1" state={buttonStates[3]} func={() => handleButtonClick(4)} />
+                <GridButton id="button1" state={buttonStates[4]} func={() => handleButtonClick(5)} />
+                <GridButton id="button1" state={buttonStates[5]} func={() => handleButtonClick(6)} />
+
                 <div className="guess-div"><p className="guess-header">GUESSES LEFT</p><p className="guess-remaining">{guessesRemaining}</p></div>
                 <p className="row-header">{gridHeaders[5]}</p>
-                <button
-                    id="button7"
-                    className={
-                        selectedButtonId === 7
-                            ? "grid-button selected"
-                            : disabledButtons.includes(7)
-                            ? "grid-button disabled"
-                            : "grid-button"
-                    }
-                    onClick={() => handleButtonClick(7)}
-                >
-                    Button 7
-                </button>
-                <button
-                    id="button8"
-                    className={
-                        selectedButtonId === 8
-                            ? "grid-button selected"
-                            : disabledButtons.includes(8)
-                            ? "grid-button disabled"
-                            : "grid-button"
-                    }
-                    onClick={() => handleButtonClick(8)}
-                >
-                    Button 8
-                </button>
-                <button
-                    id="button9"
-                    className={
-                        selectedButtonId === 9
-                            ? "grid-button selected"
-                            : disabledButtons.includes(9)
-                            ? "grid-button disabled"
-                            : "grid-button"
-                    }
-                    onClick={() => handleButtonClick(9)}
-                >
-                    Button 9
-                </button>
+                <GridButton id="button1" state={buttonStates[6]} func={() => handleButtonClick(7)} />
+                <GridButton id="button1" state={buttonStates[7]} func={() => handleButtonClick(8)} />
+                <GridButton id="button1" state={buttonStates[8]} func={() => handleButtonClick(9)} />
+
             </div>
             <div>
                 <img src={pokemonSprite} alt="pokemon" />
