@@ -9,27 +9,18 @@ export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  // const fetchData = (value) => {
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       const results = json.filter((user) => {
-  //         return (
-  //           value &&
-  //           user &&
-  //           user.name &&
-  //           user.name.toLowerCase().includes(value)
-  //         );
-  //       });
-  //       setResults(results);
-  //       setSearchResults(results);
-  //     });
-  // };
-
   const fetchData = (value) => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=1281")
       .then((response) => response.json())
       .then((json) => {
+        // const results = json.results.filter((pokemon) => {
+        //   return (
+        //     value &&
+        //     pokemon &&
+        //     pokemon.name &&
+        //     pokemon.name.toLowerCase().includes(value)
+        //   );
+        // });
         const results = json.results.filter((pokemon) => {
           return (
             value &&
@@ -37,7 +28,8 @@ export const SearchBar = ({ setResults }) => {
             pokemon.name &&
             pokemon.name.toLowerCase().includes(value)
           );
-        });
+        }).slice(0, 100);
+  
 
         results.push({
           name: "None"

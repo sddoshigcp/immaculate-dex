@@ -6,6 +6,7 @@
     font-size: 1.4rem; /* Increase font size slightly */
     cursor: pointer;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
@@ -26,7 +27,7 @@
 }
 
 .grid-button-text {
-
+    font-family: Arial, Helvetica, sans-serif;
 }  
 
 .grid-button-div:nth-child(7) {
@@ -54,7 +55,7 @@
     background-color: #c2ba71;
 }
 
-.correct {
+.completed {
     background-color: #59d185;
     pointer-events: none; /* This prevents any further click or hover events on the button */
 }

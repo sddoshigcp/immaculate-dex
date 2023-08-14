@@ -35,7 +35,7 @@ import categoryData from "../Data/categories.json";
 export async function getAllPokemon() {
     //use pokeapi instead of google sheets
     try {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1281");
         if (!response.ok) {
             throw new Error("Network response was not ok.");
         }

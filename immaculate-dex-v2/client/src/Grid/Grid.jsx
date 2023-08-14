@@ -22,17 +22,14 @@ function Grid() {
 
     //Disabled buttons and correct buttons
     const [buttonStates, setButtonStates] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-
-    //Pokemon names
-    const [pokemonNames, setPokemonNames] = useState([]);
     
     //Header for categories, clues based on headers, and answers based on clues
     const [gridHeaders, setGridHeaders] = useState([]);
     const [gridClues, setGridClues] = useState([]);
-    const [gridAnswers, setGridAnswers] = useState([]);
+    const [gridAnswers, setGridAnswers] = useState(["","","","","","","","",""]); //Correct answers from user
 
     //User guesses
-    const [userGuesses, setUserGuesses] = useState([]);
+    const [userGuesses, setUserGuesses] = useState([]); //All user answers
     const [guessesRemaining, setGuessesRemaining] = useState(null);
     
     //Loading state
@@ -51,8 +48,8 @@ function Grid() {
     const coverDivRef = useRef(null);
     const inputRef = useRef(null);
 
-    //When the user selects a pokemon from the search bar
-    const handleSearchResultSelect = (selectedOption) => {
+    //When the user selects a pokemon from the search bar (aka, making a guess)
+    const handleSearchResultSelect = async (selectedOption) => {
         console.log(`Option selected:`, selectedOption);
         
         //Set the selected pokemon (TODO: might be unnecessary)
@@ -60,7 +57,28 @@ function Grid() {
 
         
         //check guess
-        const guess = checkGuess(selectedOption, gridClues[selectedButtonId - 1]);
+        const guess = await checkGuess(selectedOption, gridClues[selectedButtonId - 1]);
+        
+        //Push guess into userguesses
+        userGuesses.push(selectedOption); //TODO: repeat checking
+
+        //TODO: if guess is correct, change button state to 2
+        if(guess) {
+            //Add pokemon to gridAnswers
+            let newGridAnswers = gridAnswers;
+            newGridAnswers[selectedButtonId - 1] = selectedOption;
+            setGridAnswers(newGridAnswers);
+            console.log("Grid answers: " + gridAnswers);
+
+            //Change button state to 2
+            let newButtonStates = buttonStates;
+            newButtonStates[selectedButtonId - 1] = 2;
+            setButtonStates(newButtonStates);
+            console.log("Button states: " + buttonStates);
+        }
+        else {
+
+        }
 
         //Close the search bar
         handleSearchBarClose();
@@ -71,7 +89,7 @@ function Grid() {
         setGuessesRemaining(newRemainingGuesses);
     };
 
-    
+    //Test code for selected pokemon
     useEffect(() => {
         console.log(`Pokemon selected:`, selectedPokemon);
     }, [selectedPokemon]); // This useEffect will run whenever selectedPokemon changes
@@ -104,10 +122,11 @@ function Grid() {
 
     };
 
+    //Test code for button states
     useEffect(() => {
-        console.log("previouslySelectedButtonId:", previouslySelectedButtonId);
-        console.log("selectedButtonId:", selectedButtonId);
-        console.log(`Button states:`, buttonStates);
+        // console.log("previouslySelectedButtonId:", previouslySelectedButtonId);
+        // console.log("selectedButtonId:", selectedButtonId);
+        // console.log(`Button states:`, buttonStates);
     }, [selectedButtonId]);
 
     //Closing the search bar
@@ -130,8 +149,6 @@ function Grid() {
         //Fetch data from API
         async function fetchData() {
             try {
-                const pokemon = await getAllPokemon();
-                setPokemonNames(pokemon);
 
                 //Retrieving headers
                 const gridHeaders = await getHeaders();
@@ -173,9 +190,7 @@ function Grid() {
     }
 
     return (
-        <div className="page-contents">
-
-            
+        <div className="page-contents">            
 
             {showSearchBar && (
                 <div className="search-div">
@@ -201,21 +216,21 @@ function Grid() {
                 <p></p>
                 <p className="row-header">{gridHeaders[3]}</p>
                 
-                <GridButton id="button1" state={buttonStates[0]} func={() => handleButtonClick(1)} />
-                <GridButton id="button1" state={buttonStates[1]} func={() => handleButtonClick(2)} />
-                <GridButton id="button1" state={buttonStates[2]} func={() => handleButtonClick(3)} />
+                <GridButton id="button1" state={buttonStates[0]} func={() => handleButtonClick(1)}  name={gridAnswers[1-1]}/>
+                <GridButton id="button1" state={buttonStates[1]} func={() => handleButtonClick(2)}  name={gridAnswers[2-1]}/>
+                <GridButton id="button1" state={buttonStates[2]} func={() => handleButtonClick(3)}  name={gridAnswers[3-1]}/>
 
                 <p></p>
                 <p className="row-header">{gridHeaders[4]}</p>
-                <GridButton id="button1" state={buttonStates[3]} func={() => handleButtonClick(4)} />
-                <GridButton id="button1" state={buttonStates[4]} func={() => handleButtonClick(5)} />
-                <GridButton id="button1" state={buttonStates[5]} func={() => handleButtonClick(6)} />
+                <GridButton id="button1" state={buttonStates[3]} func={() => handleButtonClick(4)}  name={gridAnswers[4-1]}/>
+                <GridButton id="button1" state={buttonStates[4]} func={() => handleButtonClick(5)}  name={gridAnswers[5-1]}/>
+                <GridButton id="button1" state={buttonStates[5]} func={() => handleButtonClick(6)}  name={gridAnswers[6-1]}/>
 
                 <div className="guess-div"><p className="guess-header">GUESSES LEFT</p><p className="guess-remaining">{guessesRemaining}</p></div>
                 <p className="row-header">{gridHeaders[5]}</p>
-                <GridButton id="button1" state={buttonStates[6]} func={() => handleButtonClick(7)} />
-                <GridButton id="button1" state={buttonStates[7]} func={() => handleButtonClick(8)} />
-                <GridButton id="button1" state={buttonStates[8]} func={() => handleButtonClick(9)} />
+                <GridButton id="button1" state={buttonStates[6]} func={() => handleButtonClick(7)}  name={gridAnswers[7-1]}/>
+                <GridButton id="button1" state={buttonStates[7]} func={() => handleButtonClick(8)}  name={gridAnswers[8-1]}/>
+                <GridButton id="button1" state={buttonStates[8]} func={() => handleButtonClick(9)}  name={gridAnswers[9-1]}/>
 
             </div>
             <div>

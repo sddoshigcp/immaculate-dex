@@ -110,6 +110,14 @@ export async function checkGuess(guess, clues) {
     //get all pokemon by types
     const pokemonByTypes = await getAllPokemonByTypes(clues[0], clues[1]);
 
+    console.log("pokemonByTypes: " + JSON.stringify(pokemonByTypes));
+
+    if(pokemonByTypes.length === 0) {
+        if(guess.toLowerCase() === "none") {
+            return true;
+        }
+    }
+
     //if guess is in pokemonByTypes, return true
     for (const item of pokemonByTypes) {
         if (item.name === guess) {
