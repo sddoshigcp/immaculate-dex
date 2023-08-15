@@ -19,6 +19,7 @@ body {
     ); /* Adjust width of columns as needed */
     grid-template-rows: repeat(5, 200px); /* Adjust height of rows as needed */
     gap: 0; /* Decrease the padding between buttons to 0 */
+    justify-content: center;
 }
 
 .grid-button {
@@ -64,24 +65,30 @@ body {
 }
 
 .column-header {
+    margin-top: 80px;
     align-self: center;
     justify-self: center;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     /* margin-top: 100px; */
+    font-size: 15pt;
 }
 
 .grid-logo {
     align-self: center;
     justify-self: center;
-    width: 150px;
+    width: 120px;
+    margin-top: 70px;
+    margin-left: 70px;
 }
 
 .row-header {
+    margin-left: 30px;
     align-self: center;
     justify-self: center;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    font-size: 15pt;
 }
 
 .selected {

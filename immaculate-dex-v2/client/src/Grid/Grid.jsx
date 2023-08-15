@@ -14,6 +14,7 @@ import { SearchBar } from "../Search/SearchBar";
 import { SearchResultsList } from "../Search/SearchResultsList";
 import { GridButton } from "../GridButton/GridButton";
 import { EndGame } from "../EndGame/EndGame";
+import { Header } from "../Header/Header";
 
 function Grid() {
     //Selected button and pokemon
@@ -185,10 +186,6 @@ function Grid() {
                 );
                 setGridHeaders(upperCaseGridHeaders);
 
-                //Little buddy
-                const pokemonSprite = await getSprite("bulbasaur");
-                setPokemonSprite(pokemonSprite);
-
                 //Completed loading
                 setLoading(false);
             } catch (error) {
@@ -205,13 +202,15 @@ function Grid() {
 
     return (
         <div className="page-contents">
-            {guessesRemaining === 0 && 
-            <div className="search-div">
-            <div
-                className="cover-div"
-            ></div>
-                <EndGame guesses={buttonStates}></EndGame>
-        </div>}
+            <Header></Header>
+
+
+            {guessesRemaining === 0 && (
+                <div className="search-div">
+                    <div className="cover-div"></div>
+                    <EndGame guesses={buttonStates}></EndGame>
+                </div>
+            )}
 
             {showSearchBar && (
                 <div className="search-div">
@@ -303,9 +302,6 @@ function Grid() {
                     func={() => handleButtonClick(9)}
                     name={gridAnswers[9 - 1]}
                 />
-            </div>
-            <div>
-                <img src={pokemonSprite} alt="pokemon" />
             </div>
         </div>
     );

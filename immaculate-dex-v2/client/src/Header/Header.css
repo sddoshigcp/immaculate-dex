@@ -1,6 +1,29 @@
 .header-immaculate {
+    display: flex;
     color: white;
-    margin-top: 100px;
-    background-color: red;
-    width: 100%;
+    width: 100vw;
+    align-items: center;
+    padding-left: 30px;
+    margin-top: -5px;
+}
+
+.header-logo {
+    margin: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.header-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.header-subtext {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: lighter;
+    margin-left: 10px;
+    color: rgb(197, 197, 197)
 }

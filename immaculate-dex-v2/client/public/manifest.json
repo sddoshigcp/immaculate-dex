@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "immaculate-dex-logo.png",
+      "src": "immaculate-dex-grid-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "immaculate-dex-logo.png",
+      "src": "immaculate-dex-grid-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
