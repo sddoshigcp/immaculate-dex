@@ -30,6 +30,18 @@ export async function getAllPokemonNames() {
 export async function getSprite(name) {
     let pokemonName = name.toLowerCase();
 
+    if(pokemonName === "none") {
+        try {
+            const response = await fetch(
+                "https://pokeapi.co/api/v2/item/poke-ball"
+            );
+            const data = await response.json();
+            return data.sprites.default;
+        } catch (error) {
+            console.error("Error fetching data:", error.message);
+        }
+    }
+
     const identifier = getPokemonByName(pokemonName).name;
 
     try {

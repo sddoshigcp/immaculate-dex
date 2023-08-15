@@ -1,0 +1,67 @@
+.final-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+}
+
+.grid-box {
+    height: 100px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    background-color: #1f2937;
+}
+
+.correct {
+    background-color: #59d185;
+    pointer-events: none; /* This prevents any further click or hover events on the button */
+}
+
+.grid-box:nth-child(1) {
+    border-top-left-radius: 8px;
+}
+.grid-box:nth-child(3) {
+    border-top-right-radius: 8px;
+}
+.grid-box:nth-child(7) {
+    border-bottom-left-radius: 8px;
+}
+.grid-box:nth-child(9) {
+    border-bottom-right-radius: 8px;
+}
+
+.final-box {
+    position: absolute;
+    background-color: #111827;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #111827;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #000;
+    width:350px;
+    z-index: 999;
+    left: 50%; /* Center horizontally */
+    top: 40%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Adjust for centering */
+}
+
+.final-header {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 0px;
+}
+
+.final-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.play-again-button {
+    background-color: #2563eb;
+    color: white;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 20px;
+}

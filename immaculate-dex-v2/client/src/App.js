@@ -3,6 +3,7 @@ import "./App.css";
 // import Grid from "./Grid/Grid";
 import Header from "./Header/Header";
 import Grid from "./Grid/Grid";
+import { EndGame } from "./EndGame/EndGame";
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -17,6 +18,7 @@ function App() {
     <div className="App">
       {/* <Header></Header> */}
       <Grid></Grid>
+
     </div>
   );
 }

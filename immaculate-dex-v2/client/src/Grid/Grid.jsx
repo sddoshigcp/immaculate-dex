@@ -8,30 +8,44 @@ import {
     getAllPokemonByType,
     getAllPokemonByTypes,
     getTypesForPokemon,
-    checkGuess
+    checkGuess,
 } from "./Pokemon";
 import { SearchBar } from "../Search/SearchBar";
 import { SearchResultsList } from "../Search/SearchResultsList";
 import { GridButton } from "../GridButton/GridButton";
+import { EndGame } from "../EndGame/EndGame";
 
 function Grid() {
     //Selected button and pokemon
     const [selectedButtonId, setSelectedButtonId] = useState(null);
-    const [previouslySelectedButtonId, setPreviouslySelectedButtonId] = useState(null); //TODO: find way to remove
+    const [previouslySelectedButtonId, setPreviouslySelectedButtonId] =
+        useState(null); //TODO: find way to remove
     const [selectedPokemon, setSelectedPokemon] = useState(null);
 
     //Disabled buttons and correct buttons
-    const [buttonStates, setButtonStates] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    
+    const [buttonStates, setButtonStates] = useState([
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+    ]);
+
     //Header for categories, clues based on headers, and answers based on clues
     const [gridHeaders, setGridHeaders] = useState([]);
     const [gridClues, setGridClues] = useState([]);
-    const [gridAnswers, setGridAnswers] = useState(["","","","","","","","",""]); //Correct answers from user
+    const [gridAnswers, setGridAnswers] = useState([
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+    ]); //Correct answers from user
 
     //User guesses
     const [userGuesses, setUserGuesses] = useState([]); //All user answers
     const [guessesRemaining, setGuessesRemaining] = useState(null);
-    
+
     //Loading state
     const [loading, setLoading] = useState(true);
 
@@ -51,19 +65,21 @@ function Grid() {
     //When the user selects a pokemon from the search bar (aka, making a guess)
     const handleSearchResultSelect = async (selectedOption) => {
         console.log(`Option selected:`, selectedOption);
-        
+
         //Set the selected pokemon (TODO: might be unnecessary)
         setSelectedPokemon(selectedOption);
 
-        
         //check guess
-        const guess = await checkGuess(selectedOption, gridClues[selectedButtonId - 1]);
-        
+        const guess = await checkGuess(
+            selectedOption,
+            gridClues[selectedButtonId - 1]
+        );
+
         //Push guess into userguesses
         userGuesses.push(selectedOption); //TODO: repeat checking
 
         //TODO: if guess is correct, change button state to 2
-        if(guess) {
+        if (guess) {
             //Add pokemon to gridAnswers
             let newGridAnswers = gridAnswers;
             newGridAnswers[selectedButtonId - 1] = selectedOption;
@@ -76,28 +92,29 @@ function Grid() {
             setButtonStates(newButtonStates);
             console.log("Button states: " + buttonStates);
         }
-        else {
-
-        }
 
         //Close the search bar
         handleSearchBarClose();
-        
+
         //Decrement guesses remaining
         let newRemainingGuesses = guessesRemaining;
         newRemainingGuesses--;
         setGuessesRemaining(newRemainingGuesses);
+
+        if (newRemainingGuesses === 0) {
+            //delegate end of game to another function
+        }
     };
+
+    const endGame = () => {};
 
     //Test code for selected pokemon
     useEffect(() => {
         console.log(`Pokemon selected:`, selectedPokemon);
     }, [selectedPokemon]); // This useEffect will run whenever selectedPokemon changes
 
-
     //Selecting a box from the grid
     const handleButtonClick = (buttonId) => {
-
         //if button is already selected, do nothing
         if (buttonStates[buttonId - 1] > 0) {
             return;
@@ -109,7 +126,7 @@ function Grid() {
 
         //set button states
         setButtonStates(newButtonStates);
-        
+
         //set selected button
         setSelectedButtonId(buttonId);
         setPreviouslySelectedButtonId(buttonId);
@@ -119,7 +136,6 @@ function Grid() {
 
         //print corresponding clue
         console.log("Clue: " + JSON.stringify(gridClues[buttonId - 1]));
-
     };
 
     //Test code for button states
@@ -131,7 +147,6 @@ function Grid() {
 
     //Closing the search bar
     const handleSearchBarClose = (e) => {
-
         //Make every 1 in buttonStates a 0
         let newButtonStates = buttonStates;
         for (let i = 0; i < newButtonStates.length; i++) {
@@ -149,13 +164,12 @@ function Grid() {
         //Fetch data from API
         async function fetchData() {
             try {
-
                 //Retrieving headers
                 const gridHeaders = await getHeaders();
-                
+
                 //Setting up clues
                 const firstArray = gridHeaders.slice(3);
-                const secondArray = gridHeaders.slice(0,3); 
+                const secondArray = gridHeaders.slice(0, 3);
                 for (const element1 of firstArray) {
                     for (const element2 of secondArray) {
                         gridClues.push([element1, element2]);
@@ -190,7 +204,14 @@ function Grid() {
     }
 
     return (
-        <div className="page-contents">            
+        <div className="page-contents">
+            {guessesRemaining === 0 && 
+            <div className="search-div">
+            <div
+                className="cover-div"
+            ></div>
+                <EndGame guesses={buttonStates}></EndGame>
+        </div>}
 
             {showSearchBar && (
                 <div className="search-div">
@@ -199,39 +220,89 @@ function Grid() {
                         ref={coverDivRef}
                         onClick={handleSearchBarClose}
                     ></div>
-                    <div className="search-bar-container" ref={inputRef} >
+                    <div className="search-bar-container" ref={inputRef}>
                         <SearchBar setResults={setResults} />
                         {results && results.length > 0 && (
-                            <SearchResultsList results={results} onSelect={handleSearchResultSelect} />
+                            <SearchResultsList
+                                results={results}
+                                onSelect={handleSearchResultSelect}
+                            />
                         )}
                     </div>
                 </div>
             )}
 
             <div className="button-grid">
-                <img src="../immaculate-dex-logo.png" className="grid-logo"/>
+                <img src="../immaculate-dex-logo.png" className="grid-logo" />
                 <p className="column-header">{gridHeaders[0]}</p>
                 <p className="column-header">{gridHeaders[1]}</p>
                 <p className="column-header">{gridHeaders[2]}</p>
                 <p></p>
                 <p className="row-header">{gridHeaders[3]}</p>
-                
-                <GridButton id="button1" state={buttonStates[0]} func={() => handleButtonClick(1)}  name={gridAnswers[1-1]}/>
-                <GridButton id="button1" state={buttonStates[1]} func={() => handleButtonClick(2)}  name={gridAnswers[2-1]}/>
-                <GridButton id="button1" state={buttonStates[2]} func={() => handleButtonClick(3)}  name={gridAnswers[3-1]}/>
+
+                <GridButton
+                    id="button1"
+                    state={buttonStates[0]}
+                    func={() => handleButtonClick(1)}
+                    name={gridAnswers[1 - 1]}
+                />
+                <GridButton
+                    id="button1"
+                    state={buttonStates[1]}
+                    func={() => handleButtonClick(2)}
+                    name={gridAnswers[2 - 1]}
+                />
+                <GridButton
+                    id="button1"
+                    state={buttonStates[2]}
+                    func={() => handleButtonClick(3)}
+                    name={gridAnswers[3 - 1]}
+                />
 
                 <p></p>
                 <p className="row-header">{gridHeaders[4]}</p>
-                <GridButton id="button1" state={buttonStates[3]} func={() => handleButtonClick(4)}  name={gridAnswers[4-1]}/>
-                <GridButton id="button1" state={buttonStates[4]} func={() => handleButtonClick(5)}  name={gridAnswers[5-1]}/>
-                <GridButton id="button1" state={buttonStates[5]} func={() => handleButtonClick(6)}  name={gridAnswers[6-1]}/>
+                <GridButton
+                    id="button1"
+                    state={buttonStates[3]}
+                    func={() => handleButtonClick(4)}
+                    name={gridAnswers[4 - 1]}
+                />
+                <GridButton
+                    id="button1"
+                    state={buttonStates[4]}
+                    func={() => handleButtonClick(5)}
+                    name={gridAnswers[5 - 1]}
+                />
+                <GridButton
+                    id="button1"
+                    state={buttonStates[5]}
+                    func={() => handleButtonClick(6)}
+                    name={gridAnswers[6 - 1]}
+                />
 
-                <div className="guess-div"><p className="guess-header">GUESSES LEFT</p><p className="guess-remaining">{guessesRemaining}</p></div>
+                <div className="guess-div">
+                    <p className="guess-header">GUESSES LEFT</p>
+                    <p className="guess-remaining">{guessesRemaining}</p>
+                </div>
                 <p className="row-header">{gridHeaders[5]}</p>
-                <GridButton id="button1" state={buttonStates[6]} func={() => handleButtonClick(7)}  name={gridAnswers[7-1]}/>
-                <GridButton id="button1" state={buttonStates[7]} func={() => handleButtonClick(8)}  name={gridAnswers[8-1]}/>
-                <GridButton id="button1" state={buttonStates[8]} func={() => handleButtonClick(9)}  name={gridAnswers[9-1]}/>
-
+                <GridButton
+                    id="button1"
+                    state={buttonStates[6]}
+                    func={() => handleButtonClick(7)}
+                    name={gridAnswers[7 - 1]}
+                />
+                <GridButton
+                    id="button1"
+                    state={buttonStates[7]}
+                    func={() => handleButtonClick(8)}
+                    name={gridAnswers[8 - 1]}
+                />
+                <GridButton
+                    id="button1"
+                    state={buttonStates[8]}
+                    func={() => handleButtonClick(9)}
+                    name={gridAnswers[9 - 1]}
+                />
             </div>
             <div>
                 <img src={pokemonSprite} alt="pokemon" />
