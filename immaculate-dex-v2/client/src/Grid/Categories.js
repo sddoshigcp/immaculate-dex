@@ -7,7 +7,7 @@ function getRandomNumberInRange(min, max) {
 function getCategoryById(dataArray, id) {
     for (const item of dataArray) {
         if (item.id === id.toString()) {
-            return item.category;
+            return item;
         }
     }
     return null; // If no matching Id is found
@@ -19,13 +19,15 @@ export async function getHeaders() {
 
     const categories = await getCategories();
 
+    let length = categories.length;
+
     const headers = [];
 
-    //generate three random numbers between 1 and 29 inclusive
+    //generate three random numbers between 1 and length inclusive
 
     const randomNumbers = [];
     while (randomNumbers.length < 6) {
-        let randomNumber = getRandomNumberInRange(1, 18);
+        let randomNumber = getRandomNumberInRange(1, length);
         if (!randomNumbers.includes(randomNumber)) {
             randomNumbers.push(randomNumber);
 

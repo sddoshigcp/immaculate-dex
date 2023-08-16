@@ -15,6 +15,7 @@ import { SearchResultsList } from "../Search/SearchResultsList";
 import { GridButton } from "../GridButton/GridButton";
 import { EndGame } from "../EndGame/EndGame";
 import { Header } from "../Header/Header";
+import { StartGame } from "../StartGame/StartGame";
 
 function Grid() {
     //Selected button and pokemon
@@ -50,14 +51,14 @@ function Grid() {
     //Loading state
     const [loading, setLoading] = useState(true);
 
-    //Sprite for the selected pokemon
-    const [pokemonSprite, setPokemonSprite] = useState(null);
-
     //Whether to show the search bar
     const [showSearchBar, setShowSearchBar] = useState(false);
 
     //Search results
     const [results, setResults] = useState([]);
+
+    //Start screen
+    const [startScreen, setStartScreen] = useState(true);
 
     //Refs
     const coverDivRef = useRef(null);
@@ -106,8 +107,6 @@ function Grid() {
             //delegate end of game to another function
         }
     };
-
-    const endGame = () => {};
 
     //Test code for selected pokemon
     useEffect(() => {
@@ -161,6 +160,18 @@ function Grid() {
         setSelectedButtonId(null);
     };
 
+    //Close Start Screen
+    function handleStartScreenClose() {
+        setStartScreen(false);
+    };
+
+    //Open start screen
+    function handleStartScreenOpen() {
+        setStartScreen(true);
+    }
+    
+
+
     useEffect(() => {
         //Fetch data from API
         async function fetchData() {
@@ -182,7 +193,7 @@ function Grid() {
 
                 //Setting up headers
                 const upperCaseGridHeaders = gridHeaders.map((header) =>
-                    header.toUpperCase()
+                    header.category.toUpperCase()
                 );
                 setGridHeaders(upperCaseGridHeaders);
 
@@ -202,8 +213,14 @@ function Grid() {
 
     return (
         <div className="page-contents">
-            <Header></Header>
+            <Header open={handleStartScreenOpen}></Header>
 
+            {startScreen && (
+                <div className="search-div">
+                    <div className="cover-div"></div>
+                    <StartGame close={handleStartScreenClose} />
+                </div>
+            )}
 
             {guessesRemaining === 0 && (
                 <div className="search-div">
