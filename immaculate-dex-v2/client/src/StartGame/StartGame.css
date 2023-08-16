@@ -49,3 +49,19 @@
     color: white !important;
 }
 
+@media (max-width: 768px) {
+    .start-box {
+        width: 50%;
+        top: 70%;
+        left: 48.5%;
+    }
+}
+
+@media (max-width: 414px) {
+    .start-box {
+        width: 50%;
+        top: 100%;
+        left: 48.5%;
+    }
+}
+

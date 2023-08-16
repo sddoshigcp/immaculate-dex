@@ -37,3 +37,9 @@
     
     background-color: rgb(25, 180, 82);
   }
+
+  @media (max-width: 414px) {
+    .select-pokemon{
+        width: 60px;
+    }
+}
