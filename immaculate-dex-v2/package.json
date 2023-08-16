@@ -1,11 +1,14 @@
 {
+  "homepage": "http://sddoshigcp.github.io/immaculate-dex",
   "name": "immaculate-dex-v2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
