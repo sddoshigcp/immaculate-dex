@@ -22,7 +22,7 @@ export const StartGame = ({ close }) => {
                 HOW TO PLAY<br></br>IMMACULATE DEX
             </p>
             <p className="start-text">
-                Select a player for each cell that matches the criteria for that
+                Select a pokemon for each cell that matches the criteria for that
                 cell's row and column. <br></br><br></br>You have nine guesses to fill
                 out the grid.
                 <br></br><br></br>Each guess, whether correct or incorrect, counts as a
