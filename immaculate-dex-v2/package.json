@@ -1,5 +1,4 @@
 {
-  "homepage": "http://sddoshigcp.github.io/immaculate-dex",
   "name": "immaculate-dex-v2",
   "version": "1.0.0",
   "description": "",
@@ -8,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "googleapis": "^123.0.0",
     "react-filter-box-mod": "^3.4.6",
     "react-icons": "^4.10.1",
+    "react-scripts": "^5.0.1",
     "react-select": "^5.7.4"
   }
 }

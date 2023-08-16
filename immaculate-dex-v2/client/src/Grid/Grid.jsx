@@ -249,7 +249,7 @@ function Grid() {
             )}
 
             <div className="button-grid">
-                <img src="../immaculate-dex-logo.png" className="grid-logo" />
+                <img src="./immaculate-dex-logo.png" className="grid-logo" />
                 <p className="column-header">{gridHeaders[0]}</p>
                 <p className="column-header">{gridHeaders[1]}</p>
                 <p className="column-header">{gridHeaders[2]}</p>
