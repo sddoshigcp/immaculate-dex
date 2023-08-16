@@ -60,6 +60,9 @@ function Grid() {
     //Start screen
     const [startScreen, setStartScreen] = useState(true);
 
+    //Screen width
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
     //Refs
     const coverDivRef = useRef(null);
     const inputRef = useRef(null);
@@ -163,14 +166,12 @@ function Grid() {
     //Close Start Screen
     function handleStartScreenClose() {
         setStartScreen(false);
-    };
+    }
 
     //Open start screen
     function handleStartScreenOpen() {
         setStartScreen(true);
     }
-    
-
 
     useEffect(() => {
         //Fetch data from API
@@ -204,6 +205,21 @@ function Grid() {
             }
         }
         fetchData();
+    }, []);
+
+    //Code for screen width
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+        };
+
+        // Attach the event listener
+        window.addEventListener("resize", handleResize);
+
+        // Clean up the event listener when the component unmounts
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     //TODO: Loading screen
@@ -247,78 +263,95 @@ function Grid() {
                     </div>
                 </div>
             )}
+            <div className="game-div">
+                <div className="button-grid">
+                    <img
+                        src="./immaculate-dex-logo.png"
+                        className="grid-logo"
+                    />
+                    <p className="column-header">{gridHeaders[0]}</p>
+                    <p className="column-header">{gridHeaders[1]}</p>
+                    <p className="column-header">{gridHeaders[2]}</p>
+                    <div className="spacer"></div>
+                    <p className="row-header">{gridHeaders[3]}</p>
 
-            <div className="button-grid">
-                <img src="./immaculate-dex-logo.png" className="grid-logo" />
-                <p className="column-header">{gridHeaders[0]}</p>
-                <p className="column-header">{gridHeaders[1]}</p>
-                <p className="column-header">{gridHeaders[2]}</p>
-                <p></p>
-                <p className="row-header">{gridHeaders[3]}</p>
+                    <GridButton
+                        id="button1"
+                        state={buttonStates[0]}
+                        func={() => handleButtonClick(1)}
+                        name={gridAnswers[1 - 1]}
+                    />
+                    <GridButton
+                        id="button2"
+                        state={buttonStates[1]}
+                        func={() => handleButtonClick(2)}
+                        name={gridAnswers[2 - 1]}
+                    />
+                    <GridButton
+                        id="button3"
+                        state={buttonStates[2]}
+                        func={() => handleButtonClick(3)}
+                        name={gridAnswers[3 - 1]}
+                    />
+                    <div className="spacer"></div>
+                    <p className="row-header">{gridHeaders[4]}</p>
+                    <GridButton
+                        id="button4"
+                        state={buttonStates[3]}
+                        func={() => handleButtonClick(4)}
+                        name={gridAnswers[4 - 1]}
+                    />
+                    <GridButton
+                        id="button5"
+                        state={buttonStates[4]}
+                        func={() => handleButtonClick(5)}
+                        name={gridAnswers[5 - 1]}
+                    />
+                    <GridButton
+                        id="button6"
+                        state={buttonStates[5]}
+                        func={() => handleButtonClick(6)}
+                        name={gridAnswers[6 - 1]}
+                    />
 
-                <GridButton
-                    id="button1"
-                    state={buttonStates[0]}
-                    func={() => handleButtonClick(1)}
-                    name={gridAnswers[1 - 1]}
-                />
-                <GridButton
-                    id="button1"
-                    state={buttonStates[1]}
-                    func={() => handleButtonClick(2)}
-                    name={gridAnswers[2 - 1]}
-                />
-                <GridButton
-                    id="button1"
-                    state={buttonStates[2]}
-                    func={() => handleButtonClick(3)}
-                    name={gridAnswers[3 - 1]}
-                />
+                    <div className="guess-spot spacer">
+                        {screenWidth > 768 && (
+                            <div className="guess-div">
+                                <p className="guess-header">GUESSES LEFT</p>
+                                <p className="guess-remaining">
+                                    {guessesRemaining}
+                                </p>
+                            </div>
+                        )}
+                    </div>
 
-                <p></p>
-                <p className="row-header">{gridHeaders[4]}</p>
-                <GridButton
-                    id="button1"
-                    state={buttonStates[3]}
-                    func={() => handleButtonClick(4)}
-                    name={gridAnswers[4 - 1]}
-                />
-                <GridButton
-                    id="button1"
-                    state={buttonStates[4]}
-                    func={() => handleButtonClick(5)}
-                    name={gridAnswers[5 - 1]}
-                />
-                <GridButton
-                    id="button1"
-                    state={buttonStates[5]}
-                    func={() => handleButtonClick(6)}
-                    name={gridAnswers[6 - 1]}
-                />
-
-                <div className="guess-div">
-                    <p className="guess-header">GUESSES LEFT</p>
-                    <p className="guess-remaining">{guessesRemaining}</p>
+                    <p className="row-header">{gridHeaders[5]}</p>
+                    <GridButton
+                        id="button7"
+                        state={buttonStates[6]}
+                        func={() => handleButtonClick(7)}
+                        name={gridAnswers[7 - 1]}
+                    />
+                    <GridButton
+                        id="button8"
+                        state={buttonStates[7]}
+                        func={() => handleButtonClick(8)}
+                        name={gridAnswers[8 - 1]}
+                    />
+                    <GridButton
+                        id="button9"
+                        state={buttonStates[8]}
+                        func={() => handleButtonClick(9)}
+                        name={gridAnswers[9 - 1]}
+                    />
+                    <div className="spacer"></div>
                 </div>
-                <p className="row-header">{gridHeaders[5]}</p>
-                <GridButton
-                    id="button1"
-                    state={buttonStates[6]}
-                    func={() => handleButtonClick(7)}
-                    name={gridAnswers[7 - 1]}
-                />
-                <GridButton
-                    id="button1"
-                    state={buttonStates[7]}
-                    func={() => handleButtonClick(8)}
-                    name={gridAnswers[8 - 1]}
-                />
-                <GridButton
-                    id="button1"
-                    state={buttonStates[8]}
-                    func={() => handleButtonClick(9)}
-                    name={gridAnswers[9 - 1]}
-                />
+                {screenWidth <= 768 && (
+                    <div className="guess-div">
+                        <p className="guess-header">GUESSES LEFT</p>
+                        <p className="guess-remaining">{guessesRemaining}</p>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -41,3 +41,11 @@
 /* .App {
   width: 100%;
 } */
+
+.App {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+}

@@ -7,8 +7,15 @@ body {
     justify-content: center;
     align-items: center;
     /* height: 100vh; */
-    
+
     overflow-x: hidden;
+}
+
+.game-div {
+    display: inline;
+}
+
+.spacer {
 }
 
 .button-grid {
@@ -47,16 +54,52 @@ body {
 }
 
 /* Rounded corners for buttons in the corners of the grid */
-.grid-button:nth-child(7) {
+.grid-button:nth-child(1) {
     border-top-left-radius: 8px;
 }
-.grid-button:nth-child(9) {
+.grid-button:nth-child(2) {
     border-top-right-radius: 8px;
 }
-.grid-button:nth-child(17) {
+.grid-button:nth-child(3) {
     border-bottom-left-radius: 8px;
 }
-.grid-button:nth-child(19) {
+.grid-button:nth-child(4) {
+    border-bottom-right-radius: 8px;
+}
+.grid-button:nth-child(5) {
+    border-top-left-radius: 8px;
+}
+.grid-button:nth-child(6) {
+    border-top-right-radius: 8px;
+}
+.grid-button:nth-child(7) {
+    border-bottom-left-radius: 8px;
+}
+.grid-button:nth-child(8) {
+    border-bottom-right-radius: 8px;
+}
+.grid-button:nth-child(9) {
+    border-top-left-radius: 8px;
+}
+.grid-button:nth-child(10) {
+    border-top-right-radius: 8px;
+}
+.grid-button:nth-child(11) {
+    border-bottom-left-radius: 8px;
+}
+.grid-button:nth-child(12) {
+    border-bottom-right-radius: 8px;
+}
+.grid-button:nth-child(13) {
+    border-top-left-radius: 8px;
+}
+.grid-button:nth-child(14) {
+    border-top-right-radius: 8px;
+}
+.grid-button:nth-child(15) {
+    border-bottom-left-radius: 8px;
+}
+.grid-button:nth-child(16) {
     border-bottom-right-radius: 8px;
 }
 
@@ -104,48 +147,54 @@ body {
     pointer-events: none; /* This prevents any further click or hover events on the button */
 }
 
-
 .page-contents {
-  position: relative;
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .cover-div {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 998; /* Lower z-index to ensure the cover div appears below the search bar container */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998; /* Lower z-index to ensure the cover div appears below the search bar container */
 }
 
 .search-bar-container {
-  position: absolute;
-  z-index: 999;
-  left: 50%; /* Center horizontally */
-  top: 30%; /* Center vertically */
-  transform: translate(-50%, -50%); /* Adjust for centering */
-  width: 500px;
+    position: absolute;
+    z-index: 999;
+    left: 50%; /* Center horizontally */
+    top: 30%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Adjust for centering */
+    width: 500px;
 }
 
 .search-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 500px;
-  height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 100%;
 }
 
+.guess-spot {
+    justify-content: center;
+    align-items: center;
+}
 
 .guess-div {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    
+    height: 100%;
+    width: 75%;
 }
 
 .guess-header {
@@ -163,4 +212,74 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 50pt;
+}
+
+/** RESPONSIVE */
+
+/* Add this CSS code to adjust the layout for smaller screens */
+@media (max-width: 753px) {
+    .button-grid {
+        display: grid;
+        grid-template-columns: 200px repeat(3, 150px) 0px; /* Four columns with equal width and a fifth column with 0px width */
+        grid-template-rows: repeat(4, 150px);
+    }
+
+    .spacer {
+        width: 0;
+        height: 0;
+    }
+
+    .column-header,
+    .row-header {
+        font-size: 12pt; /* Decrease font size for headers */
+    }
+
+    .grid-logo {
+        width: 80px; /* Adjust logo size */
+        margin-top: 50px; /* Adjust logo margin */
+        margin-left: 30px; /* Adjust logo margin */
+    }
+
+    .search-bar-container {
+        width: 80%; /* Adjust search bar container width */
+    }
+
+    .guess-remaining {
+        font-size: 40pt; /* Adjust remaining guesses font size */
+    }
+
+    .guess-div {
+        width: 100%; /* Adjust guess div width */
+    }
+
+    .page-contents {
+        width: 100%;
+    }
+}
+
+@media (max-width: 414px) {
+    .button-grid {
+        grid-template-columns: 100px repeat(3, 80px) 0px; /* Four columns with equal width and a fifth column with 0px width */
+        grid-template-rows: repeat(4, 80px);
+        font-size: smaller;
+        padding-right: 20px;
+    }
+
+    .row-header {
+        margin: 0px;
+    }
+
+    .column-header {
+        margin: 0px;
+    }
+    .cover-div {
+        width: 414px;
+    }
+
+    .page-contents {
+        width: 414px;
+    }
+    .search-bar-container {
+        top: 60%;
+    }
 }
