@@ -26,7 +26,7 @@ export const SearchBar = ({ setResults }) => {
             value &&
             pokemon &&
             pokemon.name &&
-            pokemon.name.toLowerCase().includes(value)
+            pokemon.name.toLowerCase().includes(value.toLowerCase())
           );
         }).slice(0, 100);
   
