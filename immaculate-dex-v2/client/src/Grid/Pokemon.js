@@ -47,6 +47,18 @@ export async function getSprite(name) {
     try {
         const response = await fetch(pokemonUrl + identifier);
         const data = await response.json(); 
+
+        if(data.sprites.front_default === null) {
+            try {
+                const response = await fetch(
+                    "https://pokeapi.co/api/v2/item/poke-ball"
+                );
+                const data = await response.json();
+                return data.sprites.default;
+            } catch (error) {
+                console.error("Error fetching data:", error.message);
+            }
+        }
         
         return data.sprites.front_default;
 
@@ -117,10 +129,21 @@ export async function getTypesForPokemon(name) {
     }
 }
 
+
+/** Pokemon checking functions below */
+
 export async function checkGuess(guess, clues) {
 
+    //If clues includes single-type
+    if(clues[0].clue_type === 2) {
+        return await checkSingleType(guess, clues[1].category);
+    }  
+    else if (clues[1].clue_type === 2) {
+        return await checkSingleType(guess, clues[0].category);
+    }
+
     //get all pokemon by types
-    const pokemonByTypes = await getAllPokemonByTypes(clues[0], clues[1]);
+    const pokemonByTypes = await getAllPokemonByTypes(clues[0].category, clues[1].category);
 
     console.log("pokemonByTypes: " + JSON.stringify(pokemonByTypes));
 
@@ -137,5 +160,19 @@ export async function checkGuess(guess, clues) {
         }
     }
     
+    return false;
+}
+
+export async function checkSingleType(pokemon, type) {
+    const types = await getTypesForPokemon(pokemon);
+
+    if(types.length > 1) {
+        return false;
+    }
+
+    if(types[0].type.name === type) {
+        return true;
+    }
+
     return false;
 }
