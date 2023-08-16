@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/immaculate-dex/static/css/main.3ab8cda6.css",
-    "main.js": "/immaculate-dex/static/js/main.e2de013f.js",
+    "main.js": "/immaculate-dex/static/js/main.c2ed0ab8.js",
     "index.html": "/immaculate-dex/index.html",
     "main.3ab8cda6.css.map": "/immaculate-dex/static/css/main.3ab8cda6.css.map",
-    "main.e2de013f.js.map": "/immaculate-dex/static/js/main.e2de013f.js.map"
+    "main.c2ed0ab8.js.map": "/immaculate-dex/static/js/main.c2ed0ab8.js.map"
   },
   "entrypoints": [
     "static/css/main.3ab8cda6.css",
-    "static/js/main.e2de013f.js"
+    "static/js/main.c2ed0ab8.js"
   ]
 }
